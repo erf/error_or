@@ -17,5 +17,6 @@ void main() {
     expect(errorOr.hasError, true);
     expect(errorOr.value, null);
     expect(errorOr.error, isA<Exception>());
+    expect(errorOr.error.toString(), 'Exception: Error');
   });
 }
