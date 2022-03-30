@@ -1,7 +1,16 @@
 library error_or;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
+class ErrorOr<T> {
+  final T? value;
+  final Object? error;
+
+  const ErrorOr({this.value, this.error});
+
+  factory ErrorOr.value(T value) => ErrorOr(value: value);
+
+  factory ErrorOr.error(Object error) => ErrorOr(error: error);
+
+  bool get hasValue => value != null;
+
+  bool get hasError => error != null;
 }
