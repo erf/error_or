@@ -6,9 +6,9 @@ class ErrorOr<T> {
 
   const ErrorOr({this.value, this.error});
 
-  factory ErrorOr.value(T value) => ErrorOr(value: value);
+  const ErrorOr.value(T value) : this(value: value);
 
-  factory ErrorOr.error(Object error) => ErrorOr(error: error);
+  const ErrorOr.error(Object error) : this(error: error);
 
   bool get hasValue => value != null;
 

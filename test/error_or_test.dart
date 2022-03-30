@@ -4,7 +4,7 @@ import 'package:error_or/error_or.dart';
 
 void main() {
   test('add value 1 and expect 1', () {
-    final errorOr = ErrorOr.value(1);
+    const errorOr = ErrorOr.value(1);
     expect(errorOr.hasValue, true);
     expect(errorOr.hasError, false);
     expect(errorOr.value, 1);
