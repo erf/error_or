@@ -5,9 +5,9 @@ import 'package:error_or/error_or.dart';
 Future<ErrorOr<String>> getValueOrError() async {
   await Future.delayed(Duration(milliseconds: 500));
   if (Random().nextBool() == false) {
-    return ErrorOr.withError(Exception('Error'));
+    return ErrorOr.error(Exception('Error'));
   }
-  return ErrorOr.withValue('Success');
+  return ErrorOr.value('Success');
 }
 
 void main() async {
