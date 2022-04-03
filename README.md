@@ -29,7 +29,7 @@ value is an optional so you need to force it with `!`.
 
 ## Usage
 
-Here is an example where 
+Example
 
 ```dart
 Future<ErrorOr<LocationPermission>> requestLocationPermission() async {
