@@ -1,6 +1,6 @@
 name: error_or
-description: A simple class for returning a value or an error
-version: 0.0.1
+description: A result class for returning a value or an error
+version: 0.0.2
 homepage: https://github.com/erf/error_or
 
 environment:
