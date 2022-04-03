@@ -1,5 +1,3 @@
-library error_or;
-
 class ErrorOr<T> {
   final T? value;
   final Object? error;
