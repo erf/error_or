@@ -1,3 +1,7 @@
+## 0.0.4 - 4 apr 2022
+
+* use ErrorOr as mixin and remove private constructor
+
 ## 0.0.3 - 3 apr 2022
 
 * rename _Success and _Failure -> _ValueWrapper and _ErrorWrapper
