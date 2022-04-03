@@ -1,3 +1,7 @@
+## 0.0.5 - 4 apr 2022
+
+* rename factory constructors to just 'value' and 'error'
+
 ## 0.0.4+1 - 4 apr 2022
 
 * improve README
