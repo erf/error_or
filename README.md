@@ -12,7 +12,7 @@ A subclass of `ErrorOr` contains either the expected value `T` or an error
 `Object` (usually an `Exception` returned from a `try catch`).
 
 Internally, we create a private subclass of `ErrorOr`, either a `_ValueWrapper`
-or an `_ErrorWrapper`, which contains the expected non-null value.
+or an `_ErrorWrapper`, with the expected non-null value.
 
 `ErrorOr` can be used for non-async functions too - for both Flutter and Dart.
 
