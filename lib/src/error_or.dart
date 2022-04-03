@@ -3,10 +3,10 @@ abstract class ErrorOr<T> {
   const ErrorOr._();
 
   // Create an [ErrorO] instance of type [_Success] given a value.
-  const factory ErrorOr.withValue(T value) = _Success;
+  const factory ErrorOr.withValue(T value) = _Success<T>;
 
   // Create an [ErrorO] instance of type [_Failure] given an error.
-  const factory ErrorOr.withError(Object error) = _Failure;
+  const factory ErrorOr.withError(Object error) = _Failure<T>;
 
   /// Returns true if [Result] is [_Success].
   bool get hasValue => this is _Success<T>;
