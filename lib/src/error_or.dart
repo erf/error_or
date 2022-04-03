@@ -8,7 +8,7 @@ abstract class ErrorOr<T> {
   /// Returns true if [Result] is [Failure].
   bool get hasError => this is Failure<T>;
 
-  /// Returns a new value of [Success] result.
+  /// Returns the value [T] if [Success] or throws [ErrorOrTypeCastError].
   T get value {
     if (this is Success<T>) {
       return (this as Success<T>)._value;
@@ -18,7 +18,7 @@ abstract class ErrorOr<T> {
     );
   }
 
-  /// Returns the error [Object] if [Failure].
+  /// Returns the error [Object] if [Failure] or throws [ErrorOrTypeCastError].
   Object get error {
     if (this is Failure<T>) {
       return (this as Failure<T>)._error;
