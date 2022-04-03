@@ -4,9 +4,9 @@ Return a result `ErrorOr` with either a value `T` or an error `Object`.
 
 ## Features
 
-I wanted to always return a valid value `ErrorOr` from an async function and 
-rather handle the error check in the called function. This way i could `await`
-the outer result without a `try catch`.
+Always return a valid value `ErrorOr` from an async function. Let the called /
+inner function handle the error and return an `ErrorOr`. This way the caller /
+outer function can `await` the result without a `try catch`.
 
 A subclass of `ErrorOr` contains either the expected value `T` or an error
 `Object` (usually an `Exception` returned from a `try catch`).
@@ -14,7 +14,7 @@ A subclass of `ErrorOr` contains either the expected value `T` or an error
 Internally, we create a private subclass of `ErrorOr`, either a `_Success` or a
 `_Failure`, which contains the expected non-null values.
 
-`ErrorOr` can be used for synchronous functions too - for both Flutter and Dart.
+`ErrorOr` can be used for non-async functions too - for both Flutter and Dart.
 
 ## Getting started
 
