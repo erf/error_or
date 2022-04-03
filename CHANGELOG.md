@@ -1,3 +1,7 @@
+## 0.0.4+1 - 4 apr 2022
+
+* improve README
+
 ## 0.0.4 - 4 apr 2022
 
 * use ErrorOr as mixin and remove private constructor
