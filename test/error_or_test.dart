@@ -10,6 +10,15 @@ class MyException implements Exception {
   String toString() => message;
 }
 
+class MySuccessClass {
+  final String message;
+
+  const MySuccessClass(this.message);
+
+  @override
+  String toString() => message;
+}
+
 void main() {
   group('ErrorOr tests', () {
     test('Add Success with value 1', () {
@@ -24,6 +33,14 @@ void main() {
       expect(errorOr.hasValue, true);
       expect(errorOr.hasError, false);
       expect(errorOr.value, 'Success');
+    });
+
+    test('Add Success with value \'Success\'', () {
+      const errorOr = ErrorOr.withValue(MySuccessClass('Success'));
+      expect(errorOr.hasValue, true);
+      expect(errorOr.hasError, false);
+      expect(errorOr.value, isA<MySuccessClass>());
+      expect(errorOr.value.toString(), 'Success');
     });
 
     test('Add Failure with Exception', () {
