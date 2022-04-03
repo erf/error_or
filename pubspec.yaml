@@ -1,5 +1,5 @@
 name: error_or
-description: A result class for returning a value or an error
+description: Return a result ErrorOr with either a value T or an error Object.
 version: 0.0.2
 homepage: https://github.com/erf/error_or
 
