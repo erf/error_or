@@ -13,8 +13,8 @@ abstract class ErrorOr<T> {
     if (this is Success<T>) {
       return (this as Success<T>)._value;
     }
-    throw ErrorOrTypeCheckError(
-      'Make sure that result [isSuccess] before accessing [success]',
+    throw ErrorOrTypeCastError(
+      'Make sure that result [hasValue] before accessing [value]',
     );
   }
 
@@ -23,8 +23,8 @@ abstract class ErrorOr<T> {
     if (this is Failure<T>) {
       return (this as Failure<T>)._error;
     }
-    throw ErrorOrTypeCheckError(
-      'Make sure that result [isFailure] before accessing [failure]',
+    throw ErrorOrTypeCastError(
+      'Make sure that result [hasError] before accessing [error]',
     );
   }
 }
@@ -34,6 +34,7 @@ class Success<T> extends ErrorOr<T> {
   /// The value of this [ErrorOr].
   final T _value;
 
+  /// Creates a new [Success] result.
   const Success(T value)
       : _value = value,
         super._();
@@ -44,15 +45,17 @@ class Failure<T> extends ErrorOr<T> {
   /// The error of this [ErrorOr].
   final Object _error;
 
+  /// Creates a new [Failure] with the given [error].
   const Failure(Object error)
       : _error = error,
         super._();
 }
 
-class ErrorOrTypeCheckError extends Error {
+/// Thrown if trying to access value or error if wrong type.
+class ErrorOrTypeCastError extends Error {
   final String message;
 
-  ErrorOrTypeCheckError(this.message) : super();
+  ErrorOrTypeCastError(this.message) : super();
 
   @override
   String toString() => message;
