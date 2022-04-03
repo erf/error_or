@@ -6,8 +6,6 @@ import 'error_or_type_cast_error.dart';
 /// [_ErrorWrapper] instances, [ErrorOr] provides getters and setters for the
 /// [value] and [error] properties of its subclasses, and also type checks.
 abstract class ErrorOr<T> {
-  const ErrorOr._();
-
   /// Create an [ErrorOr] instance of type [_ValueWrapper] given a value.
   const factory ErrorOr.withValue(T value) = _ValueWrapper<T>;
 
@@ -42,23 +40,19 @@ abstract class ErrorOr<T> {
 }
 
 /// A [ErrorOr] type for holding a value [T].
-class _ValueWrapper<T> extends ErrorOr<T> {
+class _ValueWrapper<T> with ErrorOr<T> {
   /// The value of this [ErrorOr].
   final T _value;
 
   /// Creates a new [_ValueWrapper] result.
-  const _ValueWrapper(T value)
-      : _value = value,
-        super._();
+  const _ValueWrapper(T value) : _value = value;
 }
 
 /// A [ErrorOr] type for wrapping an error [Object].
-class _ErrorWrapper<T> extends ErrorOr<T> {
+class _ErrorWrapper<T> with ErrorOr<T> {
   /// The error of this [ErrorOr].
   final Object _error;
 
   /// Creates a new [_ErrorWrapper] with the given [error].
-  const _ErrorWrapper(Object error)
-      : _error = error,
-        super._();
+  const _ErrorWrapper(Object error) : _error = error;
 }
