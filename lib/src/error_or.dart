@@ -1,3 +1,5 @@
+import 'error_or_type_cast_error.dart';
+
 /// A class for holding either an [Error] or a [T] value.
 abstract class ErrorOr<T> {
   const ErrorOr._();
@@ -55,14 +57,4 @@ class _Failure<T> extends ErrorOr<T> {
   const _Failure(Object error)
       : _error = error,
         super._();
-}
-
-/// Thrown if trying to access value or error if wrong type.
-class ErrorOrTypeCastError extends Error {
-  final String message;
-
-  ErrorOrTypeCastError(this.message) : super();
-
-  @override
-  String toString() => message;
 }
