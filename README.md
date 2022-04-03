@@ -9,7 +9,7 @@ I found it useful for always returning a value from an async function, so i
 could `await` it, without having to `try catch` it - which i would rather do in
 the called function.
 
-`ErrorOr` can also be used for sync functions.
+`ErrorOr` can be used for sync functions too.
 
 There are other "result" type packages, but i wanted something simple, which
 would either be the expected value, or an `Object` which usually is some type of
