@@ -42,7 +42,7 @@ Future<ErrorOr<LocationPermission>> checkPermission() async {
 }
 ErrorOr<LocationPermission> errorOrPermission = await checkPermission();
 if (errorOrPermission.hasError) {
-	return errorOrPermission;
+  return errorOrPermission;
 }
 LocationPermission permission = errorOrPermission.value;
 ```
