@@ -1,3 +1,7 @@
+## 0.0.2+2 - 3 apr 2022
+
+* improve class docs
+
 ## 0.0.2+1 - 3 apr 2022
 
 * improve README
