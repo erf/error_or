@@ -1,7 +1,7 @@
 name: error_or
 description: A simple class for returning a value or an error
 version: 0.0.1
-homepage: github.com/erf/error_or
+homepage: https://github.com/erf/error_or
 
 environment:
   sdk: '>=2.16.1 <3.0.0'
