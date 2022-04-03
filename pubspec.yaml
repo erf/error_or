@@ -1,5 +1,5 @@
 name: error_or
-description: A new Flutter package project.
+description: A minimal package for returning a value or an error
 version: 0.0.1
 homepage:
 
