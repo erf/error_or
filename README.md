@@ -1,39 +1,65 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# ErrorOr
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A simple class `ErrorOr` for returning a result with either a value `T` or an
+error `Object`.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+I found it useful for always returning a value from an async function, so i
+could `await` it, without having to `try catch` it - which i would rather do in
+the called function.
+
+`ErrorOr` can also be used for non-async (normal sync) functions.
+
+There are other "result" type packages, but i wanted something simple, which
+would either be the expected value, or an `Object` which usually is some type of
+`Exception` from a `try catch` error.
+
+Also it is similar named to the [SerenityOS](https://github.com/SerenityOS/serenity/blob/master/AK/Error.h)
+`ErrorOr` type.
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Make your function return an `ErrorOr` or a `Future<ErrorOr<SomeType>>`, which
+you would `await` in the calling class.
+
+You need to check if the result `hasError` and handle that, (e.g. checking for
+expected exception types and showing a UI), before getting the `value`. The 
+value is an optional so you need to force it with `!`.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+Here is an example where 
 
 ```dart
-const like = 'sample';
+Future<ErrorOr<LocationPermission>> requestLocationPermission() async {
+  LocationPermission permission;
+  try {
+	  permission = await Geolocator.checkPermission();
+  } catch (e) {
+	  return ErrorOr.error(e);
+  }
+  switch (permission) {
+	  // users will have to change this manually in settings (or is on web)
+	  case LocationPermission.deniedForever:
+	  case LocationPermission.unableToDetermine:
+	  // we have location permission, request immediately
+	  case LocationPermission.whileInUse:
+	  case LocationPermission.always:
+	      return ErrorOr.value(permission);
+	  case LocationPermission.denied:
+	  // initial state, request permission
+	  try {
+		  permission = await Geolocator.requestPermission();
+	  } catch (e) {
+		  return ErrorOr.error(e);
+	  }
+	  return ErrorOr.value(permission);
+  }
+}
 ```
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+I would like to keep this package minimal, but please get in touch on github if
+you have suggestions to improvements.
