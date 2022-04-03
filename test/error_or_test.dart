@@ -19,6 +19,13 @@ void main() {
       expect(errorOr.value, 1);
     });
 
+    test('Add Success with value \'Success\'', () {
+      const errorOr = ErrorOr.withValue('Success');
+      expect(errorOr.hasValue, true);
+      expect(errorOr.hasError, false);
+      expect(errorOr.value, 'Success');
+    });
+
     test('Add Failure with Exception', () {
       const errorOr = ErrorOr.withError(MyException('Error'));
       expect(errorOr.hasValue, false);
