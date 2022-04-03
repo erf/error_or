@@ -1,6 +1,10 @@
 import 'error_or_type_cast_error.dart';
 
-/// A class for holding either an [Error] or a [T] value.
+/// The base class for either a [_Success] or [_Failure] instance.
+///
+/// In addition to factory classes for creating [_Success] and [_Failure]
+/// instances, this class provides getters and setters for the [value] and
+/// [error] properties of these subclasses, and also type checks.
 abstract class ErrorOr<T> {
   const ErrorOr._();
 
