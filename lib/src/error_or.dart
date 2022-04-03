@@ -2,54 +2,58 @@
 abstract class ErrorOr<T> {
   const ErrorOr._();
 
-  /// Returns true if [Result] is [Failure].
-  bool get isFailure => this is Failure<T>;
-
   /// Returns true if [Result] is [Success].
-  bool get isSuccess => this is Success<T>;
+  bool get hasValue => this is Success<T>;
 
-  /// Returns the error [Object] if [Failure].
-  Object get failure {
-    if (this is Failure<T>) {
-      return (this as Failure<T>).error;
-    }
-
-    throw Exception(
-      'Make sure that result [isFailure] before accessing [failure]',
-    );
-  }
+  /// Returns true if [Result] is [Failure].
+  bool get hasError => this is Failure<T>;
 
   /// Returns a new value of [Success] result.
-  T get success {
+  T get value {
     if (this is Success<T>) {
-      return (this as Success<T>).value;
+      return (this as Success<T>)._value;
     }
-    throw Exception(
+    throw ErrorOrTypeCheckError(
       'Make sure that result [isSuccess] before accessing [success]',
     );
   }
 
-  static ErrorOr<T> value<T>(value) {
-    return Success(value);
-  }
-
-  static ErrorOr<T> error<T>(Object error) {
-    return Failure<T>(error);
+  /// Returns the error [Object] if [Failure].
+  Object get error {
+    if (this is Failure<T>) {
+      return (this as Failure<T>)._error;
+    }
+    throw ErrorOrTypeCheckError(
+      'Make sure that result [isFailure] before accessing [failure]',
+    );
   }
 }
 
 /// The success version of [ErrorOr] for holding a [T] value.
 class Success<T> extends ErrorOr<T> {
   /// The value of this [ErrorOr].
-  final T value;
+  final T _value;
 
-  const Success(this.value) : super._();
+  const Success(T value)
+      : _value = value,
+        super._();
 }
 
 /// The failure version of [ErrorOr] for holding an [Object] error.
 class Failure<T> extends ErrorOr<T> {
   /// The error of this [ErrorOr].
-  final Object error;
+  final Object _error;
 
-  const Failure(this.error) : super._();
+  const Failure(Object error)
+      : _error = error,
+        super._();
+}
+
+class ErrorOrTypeCheckError extends Error {
+  final String message;
+
+  ErrorOrTypeCheckError(this.message) : super();
+
+  @override
+  String toString() => message;
 }

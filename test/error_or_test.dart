@@ -5,15 +5,15 @@ void main() {
   group('ErrorOr tests', () {
     test('Add Success with value 1', () {
       const errorOr = Success(1);
-      expect(errorOr.isSuccess, true);
-      expect(errorOr.isFailure, false);
+      expect(errorOr.hasValue, true);
+      expect(errorOr.hasError, false);
       expect(errorOr.value, 1);
     });
 
     test('Add Failure with Exception', () {
       final errorOr = Failure(Exception('Error'));
-      expect(errorOr.isSuccess, false);
-      expect(errorOr.isFailure, true);
+      expect(errorOr.hasValue, false);
+      expect(errorOr.hasError, true);
       expect(errorOr.error, isA<Exception>());
       expect(errorOr.error.toString(), 'Exception: Error');
     });
@@ -22,11 +22,22 @@ void main() {
       return Success(1);
     }
 
-    test('Call function which returs ErrorOr and check if success', () {
+    test('Call function which returns Success', () {
       final errorOr = getSuccess();
-      expect(errorOr.isSuccess, true);
-      expect(errorOr.isFailure, false);
-      expect(errorOr.success, 1);
+      expect(errorOr.hasValue, true);
+      expect(errorOr.hasError, false);
+      expect(errorOr.value, 1);
+    });
+
+    ErrorOr<int> getFailure() {
+      return Failure(Exception('Error'));
+    }
+
+    test('Call function which returns Failure', () {
+      final errorOr = getFailure();
+      expect(errorOr.hasValue, false);
+      expect(errorOr.hasError, true);
+      expect(errorOr.error, isA<Exception>());
     });
   });
 }
