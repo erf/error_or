@@ -5,16 +5,16 @@ import 'package:error_or/error_or.dart';
 Future<ErrorOr<String>> getValue() async {
   await Future.delayed(Duration(seconds: 1));
   if (Random().nextBool() == false) {
-    return ErrorOr.error(Exception('Error'));
+    return Failure(Exception('Error'));
   }
-  return ErrorOr.value('Success');
+  return Success('Success');
 }
 
 void main() async {
   final errorOr = await getValue();
-  if (errorOr.hasError) {
-    print(errorOr.error);
+  if (errorOr.isFailure) {
+    print(errorOr.failure);
     return;
   }
-  print(errorOr.value);
+  print(errorOr.success);
 }

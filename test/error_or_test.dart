@@ -3,21 +3,30 @@ import 'package:test/test.dart';
 
 void main() {
   group('ErrorOr tests', () {
-    test('add value 1 and expect 1', () {
-      const errorOr = ErrorOr.value(1);
-      expect(errorOr.hasValue, true);
-      expect(errorOr.hasError, false);
+    test('Add Success with value 1', () {
+      const errorOr = Success(1);
+      expect(errorOr.isSuccess, true);
+      expect(errorOr.isFailure, false);
       expect(errorOr.value, 1);
-      expect(errorOr.error, null);
     });
 
-    test('add error and expect it', () {
-      final errorOr = ErrorOr.error(Exception('Error'));
-      expect(errorOr.hasValue, false);
-      expect(errorOr.hasError, true);
-      expect(errorOr.value, null);
+    test('Add Failure with Exception', () {
+      final errorOr = Failure(Exception('Error'));
+      expect(errorOr.isSuccess, false);
+      expect(errorOr.isFailure, true);
       expect(errorOr.error, isA<Exception>());
       expect(errorOr.error.toString(), 'Exception: Error');
+    });
+
+    ErrorOr<int> getSuccess() {
+      return Success(1);
+    }
+
+    test('Call function which returs ErrorOr and check if success', () {
+      final errorOr = getSuccess();
+      expect(errorOr.isSuccess, true);
+      expect(errorOr.isFailure, false);
+      expect(errorOr.success, 1);
     });
   });
 }
