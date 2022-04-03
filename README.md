@@ -11,8 +11,8 @@ outer function can `await` the result without a `try catch`.
 A subclass of `ErrorOr` contains either the expected value `T` or an error
 `Object` (usually an `Exception` returned from a `try catch`).
 
-Internally, we create a private subclass of `ErrorOr`, either a `_Success` or a
-`_Failure`, which contains the expected non-null values.
+Internally, we create a private subclass of `ErrorOr`, either a `_ValueWrapper`
+or an `_ErrorWrapper`, which contains the expected non-null values.
 
 `ErrorOr` can be used for non-async functions too - for both Flutter and Dart.
 
@@ -54,4 +54,4 @@ you have suggestions to improvements.
 
 The name was inspired by the `ErrorOr` type of [SerenityOS](https://github.com/SerenityOS/serenity/blob/master/AK/Error.h).
 
-The Success / Failure type pattern was inspired by [result_type](https://pub.dev/packages/result_type).
+The Success / Failure pattern was inspired by [result_type](https://pub.dev/packages/result_type).

@@ -1,39 +1,39 @@
 import 'error_or_type_cast_error.dart';
 
-/// The base class for either a [_Success] or [_Failure] instance.
+/// [ErrorOr] is the base class for either [_ValueWrapper] or [_ErrorWrapper].
 ///
-/// In addition to factory classes for creating [_Success] and [_Failure]
-/// instances, this class provides getters and setters for the [value] and
-/// [error] properties of these subclasses, and also type checks.
+/// In addition to factory constructors for creating [_ValueWrapper] and
+/// [_ErrorWrapper] instances, [ErrorOr] provides getters and setters for the
+/// [value] and [error] properties of its subclasses, and also type checks.
 abstract class ErrorOr<T> {
   const ErrorOr._();
 
-  // Create an [ErrorO] instance of type [_Success] given a value.
-  const factory ErrorOr.withValue(T value) = _Success<T>;
+  /// Create an [ErrorOr] instance of type [_ValueWrapper] given a value.
+  const factory ErrorOr.withValue(T value) = _ValueWrapper<T>;
 
-  // Create an [ErrorO] instance of type [_Failure] given an error.
-  const factory ErrorOr.withError(Object error) = _Failure<T>;
+  /// Create an [ErrorOr] instance of type [_ErrorWrapper] given an error.
+  const factory ErrorOr.withError(Object error) = _ErrorWrapper<T>;
 
-  /// Returns true if [Result] is [_Success].
-  bool get hasValue => this is _Success<T>;
+  /// Returns true if [Result] is [_ValueWrapper].
+  bool get hasValue => this is _ValueWrapper<T>;
 
-  /// Returns true if [Result] is [_Failure].
-  bool get hasError => this is _Failure<T>;
+  /// Returns true if [Result] is [_ErrorWrapper].
+  bool get hasError => this is _ErrorWrapper<T>;
 
-  /// Returns the value [T] if [_Success] or throws [ErrorOrTypeCastError].
+  /// Returns the value [T] if [_ValueWrapper] or throws [ErrorOrTypeCastError].
   T get value {
-    if (this is _Success<T>) {
-      return (this as _Success<T>)._value;
+    if (this is _ValueWrapper<T>) {
+      return (this as _ValueWrapper<T>)._value;
     }
     throw ErrorOrTypeCastError(
       'Make sure that result [hasValue] before accessing [value]',
     );
   }
 
-  /// Returns the error [Object] if [_Failure] or throws [ErrorOrTypeCastError].
+  /// Returns the error [Object] if [_ErrorWrapper] or throws [ErrorOrTypeCastError].
   Object get error {
-    if (this is _Failure<T>) {
-      return (this as _Failure<T>)._error;
+    if (this is _ErrorWrapper<T>) {
+      return (this as _ErrorWrapper<T>)._error;
     }
     throw ErrorOrTypeCastError(
       'Make sure that result [hasError] before accessing [error]',
@@ -41,24 +41,24 @@ abstract class ErrorOr<T> {
   }
 }
 
-/// The success version of [ErrorOr] for holding a [T] value.
-class _Success<T> extends ErrorOr<T> {
+/// A [ErrorOr] type for holding a value [T].
+class _ValueWrapper<T> extends ErrorOr<T> {
   /// The value of this [ErrorOr].
   final T _value;
 
-  /// Creates a new [_Success] result.
-  const _Success(T value)
+  /// Creates a new [_ValueWrapper] result.
+  const _ValueWrapper(T value)
       : _value = value,
         super._();
 }
 
-/// The failure version of [ErrorOr] for holding an [Object] error.
-class _Failure<T> extends ErrorOr<T> {
+/// A [ErrorOr] type for wrapping an error [Object].
+class _ErrorWrapper<T> extends ErrorOr<T> {
   /// The error of this [ErrorOr].
   final Object _error;
 
-  /// Creates a new [_Failure] with the given [error].
-  const _Failure(Object error)
+  /// Creates a new [_ErrorWrapper] with the given [error].
+  const _ErrorWrapper(Object error)
       : _error = error,
         super._();
 }

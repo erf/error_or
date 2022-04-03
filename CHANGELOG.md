@@ -1,3 +1,7 @@
+## 0.0.3 - 3 apr 2022
+
+* rename _Success and _Failure -> _ValueWrapper and _ErrorWrapper
+
 ## 0.0.2+2 - 3 apr 2022
 
 * improve class docs

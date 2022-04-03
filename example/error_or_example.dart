@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:error_or/error_or.dart';
 
-Future<ErrorOr<String>> getSuccessOrFailure() async {
+Future<ErrorOr<String>> getValueOrError() async {
   await Future.delayed(Duration(milliseconds: 500));
   if (Random().nextBool() == false) {
     return ErrorOr.withError(Exception('Error'));
@@ -11,7 +11,7 @@ Future<ErrorOr<String>> getSuccessOrFailure() async {
 }
 
 void main() async {
-  final errorOr = await getSuccessOrFailure();
+  final errorOr = await getValueOrError();
   if (errorOr.hasError) {
     print(errorOr.error);
     return;
