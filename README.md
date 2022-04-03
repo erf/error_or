@@ -5,25 +5,29 @@ error `Object`.
 
 ## Features
 
-I found it useful for always returning a value from an async function, so i
-could `await` it, without having to `try catch` it - which i would rather do in
-the called function.
+Always return a value `ErrorOr` from an async function and `await` it without a
+`try catch` - rather do that in the called function.
+
+There are other result type packages, but i wanted something simple. `ErrorOr` 
+returns either the expected value, or an error `Object`, usually an `Exception` 
+returned from a `try catch` error.
+
+Internally, we create one of two subbclasses of `ErrorOr`, either a `_Success`
+or a `_Failure`, which contains the expected non-null values.
 
 `ErrorOr` can be used for sync functions too.
 
-There are other "result" type packages, but i wanted something simple, which
-would either be the expected value, or an `Object` which usually is some type of
-`Exception` from a `try catch` error.
-
-It is similar named to the [SerenityOS](https://github.com/SerenityOS/serenity/blob/master/AK/Error.h) `ErrorOr` type.
-
 ## Getting started
 
-Make a function return an `ErrorOr` or a `Future<ErrorOr<T>>`, which you'll
-`await` in the calling class.
+Make a function return an `ErrorOr` or a `Future<ErrorOr>`, which you'll `await`
+in the calling class.
 
-Then check if the result `hasError` and handle that, (e.g. checking for expected exception types and showing a UI), before getting the `value`. The value is an
-optional so you need to force it with `!`.
+Create a new `ErrorOr` subbclass by calling one of its factory methods `withValue`
+or `withError`.
+
+Check if `hasError`, before calling `error`, or check if `hasValue` before
+calling `value`. If either is called without the proper check, an
+`ErrorOrTypeCastError` is thrown.
 
 ## Usage
 
@@ -32,9 +36,9 @@ Example
 ```dart
 Future<ErrorOr<LocationPermission>> checkPermission() async {
   try {
-    return ErrorOr.value(await Geolocator.checkPermission());
+    return ErrorOr.withValue(await Geolocator.checkPermission());
   } catch (e) {
-    return ErrorOr.error(e);
+    return ErrorOr.withError(e);
   }
 }
 ErrorOr<LocationPermission> errorOrPermission = await checkPermission();
@@ -48,3 +52,7 @@ LocationPermission permission = errorOrPermission.value!;
 
 I would like to keep this package minimal, but please get in touch on github if
 you have suggestions to improvements.
+
+The name was inspired by the `ErrorOr` type of [SerenityOS](https://github.com/SerenityOS/serenity/blob/master/AK/Error.h).
+
+The Succes/Failure type pattern was inspired by [result_type](https://pub.dev/packages/result_type).
