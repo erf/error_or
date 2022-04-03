@@ -21,8 +21,8 @@ or an `_ErrorWrapper`, with the expected non-null value.
 Make a function return a `Future<ErrorOr>`, which you'll `await` in the calling
 function.
 
-Create a `ErrorOr` instance by calling one of its factory methods `value` or
-`error`.
+Create a `ErrorOr` instance by calling one of its factory constructors `value`
+or `error`.
 
 Check if `hasError`, before calling `error`, or check if `hasValue` before
 calling `value`. If either is called without the proper check, an
