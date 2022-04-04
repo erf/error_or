@@ -1,3 +1,7 @@
+## 0.0.6 - 4 apr 2022
+
+* refactor error type ErrorOrTypeError and inherit from TypeError
+
 ## 0.0.5 - 4 apr 2022
 
 * rename factory constructors to just 'value' and 'error'
