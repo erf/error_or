@@ -25,7 +25,7 @@ Create a `ErrorOr` instance by calling one of its factory constructors `value`
 or `error`.
 
 Check `hasError` or `hasValue`, before calling `error` or `value`. If either is
-called without the proper check, a `TypeError` is thrown.
+called without the proper check, a `ErrorOrTypeError` is thrown.
 
 ## Usage
 
