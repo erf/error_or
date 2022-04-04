@@ -23,9 +23,7 @@ abstract class ErrorOr<T> {
     if (this is _ValueWrapper<T>) {
       return (this as _ValueWrapper<T>)._value;
     }
-    throw ErrorOrTypeError(
-      'Make sure that result [hasValue] before accessing [value]',
-    );
+    throw ErrorOrTypeError('Call [hasValue] before accessing [value]');
   }
 
   /// Returns the error [Object] if [_ErrorWrapper] or throws [ErrorOrTypeError].
@@ -33,9 +31,7 @@ abstract class ErrorOr<T> {
     if (this is _ErrorWrapper<T>) {
       return (this as _ErrorWrapper<T>)._error;
     }
-    throw ErrorOrTypeError(
-      'Make sure that result [hasError] before accessing [error]',
-    );
+    throw ErrorOrTypeError('Call [hasError] before accessing [error]');
   }
 }
 
