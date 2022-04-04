@@ -37,16 +37,16 @@ abstract class ErrorOr<T> {
 
 /// A [ErrorOr] type for holding a value [T].
 class _ValueWrapper<T> with ErrorOr<T> {
-  /// The value of this [ErrorOr].
+  /// The [_value] of this [ErrorOr].
   final T _value;
 
-  /// Creates a new [_ValueWrapper] result.
+  /// Creates a new [_ValueWrapper] with a given [value].
   const _ValueWrapper(T value) : _value = value;
 }
 
 /// A [ErrorOr] type for wrapping an error [Object].
 class _ErrorWrapper<T> with ErrorOr<T> {
-  /// The error of this [ErrorOr].
+  /// The [error] of this [ErrorOr].
   final Object _error;
 
   /// Creates a new [_ErrorWrapper] with the given [error].
