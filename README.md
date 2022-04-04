@@ -5,8 +5,8 @@ Return a result `ErrorOr` with either a value `T` or an error `Object`.
 ## Features
 
 Always return a value `ErrorOr` from an async function. Let the called function
-handle the error and return an `ErrorOr`. This way the caller can `await` the
-result without a `try catch`.
+handle the error and return an `ErrorOr`. The caller can then `await` the result
+without a `try catch`.
 
 A subclass of `ErrorOr` contains either the expected value `T` or an error
 `Object` (usually an `Exception` returned from a `try catch`).
