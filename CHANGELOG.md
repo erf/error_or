@@ -1,3 +1,7 @@
+## 0.0.8 - 4 apr 2022
+
+* add back ErrorOrTypeError 
+
 ## 0.0.7 - 4 apr 2022
 
 * cast without check and remove custom TypeError
