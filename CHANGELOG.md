@@ -1,3 +1,7 @@
+## 0.0.7 - 4 apr 2022
+
+* cast without check and remove custom TypeError
+
 ## 0.0.6+1 - 4 apr 2022
 
 * improve class docs
