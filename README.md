@@ -26,7 +26,7 @@ or `error`.
 
 Check if `hasError`, before calling `error`, or check if `hasValue` before
 calling `value`. If either is called without the proper check, an
-`ErrorOrTypeCastError` is thrown.
+`ErrorOrTypeError` is thrown.
 
 ## Usage
 

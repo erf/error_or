@@ -1,8 +1,8 @@
 /// Thrown if trying to access value or error if wrong type.
-class ErrorOrTypeCastError extends Error {
+class ErrorOrTypeError extends TypeError {
   final String message;
 
-  ErrorOrTypeCastError(this.message) : super();
+  ErrorOrTypeError(this.message) : super();
 
   @override
   String toString() => message;

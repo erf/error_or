@@ -60,7 +60,7 @@ void main() {
       expect(errorOr.hasValue, true);
       expect(errorOr.hasError, false);
       expect(errorOr.value, 1);
-      expect(() => errorOr.error, throwsA(TypeMatcher<ErrorOrTypeCastError>()));
+      expect(() => errorOr.error, throwsA(TypeMatcher<ErrorOrTypeError>()));
     });
 
     test('Add error and try to access value should throw exception', () {
@@ -69,7 +69,7 @@ void main() {
       expect(errorOr.hasError, true);
       expect(errorOr.error, isA<MyException>());
       expect(errorOr.error.toString(), 'Error');
-      expect(() => errorOr.value, throwsA(TypeMatcher<ErrorOrTypeCastError>()));
+      expect(() => errorOr.value, throwsA(TypeMatcher<ErrorOrTypeError>()));
     });
   });
 }

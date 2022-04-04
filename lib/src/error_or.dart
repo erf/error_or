@@ -1,4 +1,4 @@
-import 'error_or_type_cast_error.dart';
+import 'error_or_type_error.dart';
 
 /// [ErrorOr] is the base class for either [_ValueWrapper] or [_ErrorWrapper].
 ///
@@ -18,22 +18,22 @@ abstract class ErrorOr<T> {
   /// Returns true if [Result] is [_ErrorWrapper].
   bool get hasError => this is _ErrorWrapper<T>;
 
-  /// Returns the value [T] if [_ValueWrapper] or throws [ErrorOrTypeCastError].
+  /// Returns the value [T] if [_ValueWrapper] or throws [ErrorOrTypeError].
   T get value {
     if (this is _ValueWrapper<T>) {
       return (this as _ValueWrapper<T>)._value;
     }
-    throw ErrorOrTypeCastError(
+    throw ErrorOrTypeError(
       'Make sure that result [hasValue] before accessing [value]',
     );
   }
 
-  /// Returns the error [Object] if [_ErrorWrapper] or throws [ErrorOrTypeCastError].
+  /// Returns the error [Object] if [_ErrorWrapper] or throws [ErrorOrTypeError].
   Object get error {
     if (this is _ErrorWrapper<T>) {
       return (this as _ErrorWrapper<T>)._error;
     }
-    throw ErrorOrTypeCastError(
+    throw ErrorOrTypeError(
       'Make sure that result [hasError] before accessing [error]',
     );
   }
