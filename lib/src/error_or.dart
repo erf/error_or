@@ -12,10 +12,10 @@ abstract class ErrorOr<T> {
   /// Create an [ErrorOr] instance of type [_ErrorWrapper] given an error.
   const factory ErrorOr.error(Object error) = _ErrorWrapper<T>;
 
-  /// Returns true if [Result] is [_ValueWrapper].
+  /// Returns true if [ErrorOr] is [_ValueWrapper].
   bool get hasValue => this is _ValueWrapper<T>;
 
-  /// Returns true if [Result] is [_ErrorWrapper].
+  /// Returns true if [ErrorOr] is [_ErrorWrapper].
   bool get hasError => this is _ErrorWrapper<T>;
 
   /// Returns the value [T] if [_ValueWrapper] or throws [ErrorOrTypeError].
