@@ -1,3 +1,7 @@
+## 0.0.8+2 - 5 apr 2022
+
+* improve DOCS
+
 ## 0.0.8+1 - 5 apr 2022
 
 * improve README
@@ -12,7 +16,7 @@
 
 ## 0.0.6+1 - 4 apr 2022
 
-* improve class docs
+* improve class DOCS
 
 ## 0.0.6 - 4 apr 2022
 
@@ -36,7 +40,7 @@
 
 ## 0.0.2+2 - 3 apr 2022
 
-* improve class docs
+* improve class DOCS
 
 ## 0.0.2+1 - 3 apr 2022
 
