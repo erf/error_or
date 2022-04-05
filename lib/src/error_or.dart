@@ -43,7 +43,7 @@ class _ValueWrapper<T> with ErrorOr<T> {
   final T _value;
 
   /// Creates a new [_ValueWrapper] with a given [value].
-  const _ValueWrapper(T value) : _value = value;
+  const _ValueWrapper(this._value);
 }
 
 /// A subclass of [ErrorOr] for wrapping an error [Object].
@@ -52,5 +52,5 @@ class _ErrorWrapper<T> with ErrorOr<T> {
   final Object _error;
 
   /// Creates a new [_ErrorWrapper] with the given [error].
-  const _ErrorWrapper(Object error) : _error = error;
+  const _ErrorWrapper(this._error);
 }
