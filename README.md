@@ -53,4 +53,4 @@ you have suggestions to improvements.
 
 The name was inspired by the `ErrorOr` type of [SerenityOS](https://github.com/SerenityOS/serenity/blob/master/AK/Error.h).
 
-The Success / Failure pattern was inspired by [result_type](https://pub.dev/packages/result_type).
+The Success/Failure pattern was inspired by [result_type](https://pub.dev/packages/result_type).
