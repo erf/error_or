@@ -1,10 +1,10 @@
 import 'error_or_type_error.dart';
 
-/// [ErrorOr] is the base class for either [_ValueWrapper] or [_ErrorWrapper].
+/// [ErrorOr] is the base class for [_ValueWrapper] and [_ErrorWrapper].
 ///
-/// In addition to factory constructors for creating [_ValueWrapper] and
-/// [_ErrorWrapper] instances, [ErrorOr] provides getters and setters for the
-/// [value] and [error] properties of its subclasses, and also type checks.
+/// In addition to factory constructors for creating mentioned subclasses,
+/// [ErrorOr] provides, type check methods [hasValue] and [hasError] and getters
+/// and setters for the [value] and [error] properties of its subclasses.
 abstract class ErrorOr<T> {
   /// Create an [ErrorOr] instance of type [_ValueWrapper] given a value.
   const factory ErrorOr.value(T value) = _ValueWrapper<T>;
@@ -12,13 +12,14 @@ abstract class ErrorOr<T> {
   /// Create an [ErrorOr] instance of type [_ErrorWrapper] given an error.
   const factory ErrorOr.error(Object error) = _ErrorWrapper<T>;
 
-  /// Returns true if [ErrorOr] is [_ValueWrapper].
+  /// Returns true if [ErrorOr] is a [_ValueWrapper].
   bool get hasValue => this is _ValueWrapper<T>;
 
-  /// Returns true if [ErrorOr] is [_ErrorWrapper].
+  /// Returns true if [ErrorOr] is a [_ErrorWrapper].
   bool get hasError => this is _ErrorWrapper<T>;
 
-  /// Returns the value [T] if [_ValueWrapper] or throws [ErrorOrTypeError].
+  /// Return the value [T] of [_ValueWrapper] or throws [ErrorOrTypeError] if
+  /// [ErrorOr] is not a [_ValueWrapper].
   T get value {
     if (this is _ValueWrapper<T>) {
       return (this as _ValueWrapper<T>)._value;
@@ -26,7 +27,8 @@ abstract class ErrorOr<T> {
     throw ErrorOrTypeError('Check [hasValue] before accessing [value]');
   }
 
-  /// Returns the error [Object] if [_ErrorWrapper] or throws [ErrorOrTypeError].
+  /// Return the error [Object] of [_ErrorWrapper] or throws [ErrorOrTypeError]
+  /// if [ErrorOr] is not a [_ErrorWrapper].
   Object get error {
     if (this is _ErrorWrapper<T>) {
       return (this as _ErrorWrapper<T>)._error;
@@ -35,7 +37,7 @@ abstract class ErrorOr<T> {
   }
 }
 
-/// A [ErrorOr] type for wrapping a value [T].
+/// A subclass of [ErrorOr] for wrapping a value [T].
 class _ValueWrapper<T> with ErrorOr<T> {
   /// The [_value] of this [ErrorOr].
   final T _value;
@@ -44,7 +46,7 @@ class _ValueWrapper<T> with ErrorOr<T> {
   const _ValueWrapper(T value) : _value = value;
 }
 
-/// A [ErrorOr] type for wrapping an error [Object].
+/// A subclass of [ErrorOr] for wrapping an error [Object].
 class _ErrorWrapper<T> with ErrorOr<T> {
   /// The [error] of this [ErrorOr].
   final Object _error;
