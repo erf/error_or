@@ -1,3 +1,7 @@
+## 0.0.8+1 - 5 apr 2022
+
+* improve README
+
 ## 0.0.8 - 4 apr 2022
 
 * add back ErrorOrTypeError 
