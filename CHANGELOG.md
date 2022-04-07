@@ -1,3 +1,7 @@
+## 0.0.9+1 - 7 apr 2022
+
+* simplify DOCS
+
 ## 0.0.9 - 6 apr 2022
 
 * use initializing parameters for ErrorOr subclasses
