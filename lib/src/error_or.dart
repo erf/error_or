@@ -1,10 +1,6 @@
 import 'error_or_type_error.dart';
 
-/// [ErrorOr] is the base class for [_ValueWrapper] and [_ErrorWrapper].
-///
-/// In addition to factory constructors for creating mentioned subclasses,
-/// [ErrorOr] provides, type check methods [hasValue] and [hasError] and getters
-/// and setters for the [value] and [error] properties of its subclasses.
+/// A result type with either a [value] or an [error].
 abstract class ErrorOr<T> {
   /// Create an [ErrorOr] instance of type [_ValueWrapper] given a value.
   const factory ErrorOr.value(T value) = _ValueWrapper<T>;
