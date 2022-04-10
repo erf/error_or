@@ -2,12 +2,20 @@ import 'dart:math';
 
 import 'package:error_or/error_or.dart';
 
+String maybeThrows() {
+  if (Random().nextBool() == false) {
+    throw Exception('Error');
+  }
+  return 'Success';
+}
+
 Future<ErrorOr<String>> getValueOrError() async {
   await Future.delayed(Duration(milliseconds: 500));
-  if (Random().nextBool() == false) {
-    return ErrorOr.error(Exception('Error'));
+  try {
+    return ErrorOr.value(maybeThrows());
+  } catch (e) {
+    return ErrorOr.error(e);
   }
-  return ErrorOr.value('Success');
 }
 
 void main() async {
@@ -15,9 +23,9 @@ void main() async {
   final errorOr = await getValueOrError();
   if (errorOr.hasError) {
     print(errorOr.error);
-    return;
+  } else {
+    print(errorOr.value);
   }
-  print(errorOr.value);
 
   // ErrorOrTypeError example
   try {
