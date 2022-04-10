@@ -4,7 +4,7 @@ Return a result `ErrorOr` with either a value `T` or an error `Object`.
 
 ## Features
 
-Write async code like you'd write sync code, whilst still dealing with errors.
+Write async code like you'd write synchronous, whilst still dealing with errors.
 
 Always return a value `ErrorOr` from an async function. Let the called function
 handle the error and return an `ErrorOr`. The caller can then `await` the result
@@ -16,7 +16,7 @@ A subclass of `ErrorOr` contains either the expected value `T` or an error
 Internally, we create a private subclass of `ErrorOr`, either a `_ValueWrapper`
 or an `_ErrorWrapper`, with the expected non-null value.
 
-`ErrorOr` can be used for non-async functions too - for both Flutter and Dart.
+`ErrorOr` can be used for both async and synchronous functions.
 
 ## Getting started
 
@@ -29,7 +29,7 @@ or `error`.
 Check `hasError` or `hasValue`, before calling `error` or `value`. If either is
 called without the proper check, a `ErrorOrTypeError` is thrown.
 
-## Usage
+## Examples
 
 Sync example with ErrorOr
 
@@ -65,12 +65,12 @@ if (valueOrError.hasError) {
 String value = valueOrError.value;
 ```
 
-> Notice how similar the async ErrorOr example is to the synchronous .
+> Notice how similar the async example is to the synchronous.
 
 ## Additional information
 
-I would like to keep this package minimal, but please get in touch on github if
-you have suggestions to improvements.
+I'd like to keep this package minimal, but please get in touch on github if you
+have suggestions to improvements.
 
 The name was inspired by the `ErrorOr` type of [SerenityOS](https://github.com/SerenityOS/serenity/blob/master/AK/Error.h).
 
