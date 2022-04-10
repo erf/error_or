@@ -4,6 +4,8 @@ Return a result `ErrorOr` with either a value `T` or an error `Object`.
 
 ## Features
 
+Write async code like you'd write sync code, whilst still dealing with errors.
+
 Always return a value `ErrorOr` from an async function. Let the called function
 handle the error and return an `ErrorOr`. The caller can then `await` the result
 without a `try catch`.
@@ -29,22 +31,41 @@ called without the proper check, a `ErrorOrTypeError` is thrown.
 
 ## Usage
 
-Example
+Example with ErrorOr (sync)
 
 ```dart
-Future<ErrorOr<LocationPermission>> checkPermission() async {
+ErrorOr<String> getSyncValue() {
   try {
-    return ErrorOr.value(await Geolocator.checkPermission());
+    return ErrorOr.value(getSyncValueWhichMayThrow());
   } catch (e) {
     return ErrorOr.error(e);
   }
 }
-ErrorOr<LocationPermission> errorOrPermission = await checkPermission();
-if (errorOrPermission.hasError) {
-  return errorOrPermission;
+ErrorOr<String> valueOrError = getSyncValue();
+if (valueOrError.hasError) {
+  return valueOrError;
 }
-LocationPermission permission = errorOrPermission.value;
+String value = valueOrError.value;
 ```
+
+Example with ErrorOr (async)
+
+```dart
+Future<ErrorOr<String>> getAsyncValue() async {
+  try {
+    return ErrorOr.value(await getAsyncValueWhichMayThrow());
+  } catch (e) {
+    return ErrorOr.error(e);
+  }
+}
+ErrorOr<String> valueOrError = await getAsyncValue();
+if (valueOrError.hasError) {
+  return valueOrError;
+}
+String value = valueOrError.value;
+```
+
+> Notice how similar the async ErrorOr example is to the synchronous .
 
 ## Additional information
 
