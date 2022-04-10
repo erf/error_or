@@ -11,10 +11,19 @@ Future<ErrorOr<String>> getValueOrError() async {
 }
 
 void main() async {
+  // ErrorOr example
   final errorOr = await getValueOrError();
   if (errorOr.hasError) {
     print(errorOr.error);
     return;
   }
   print(errorOr.value);
+
+  // ErrorOrTypeError example
+  try {
+    final errorOr = await getValueOrError();
+    print(errorOr.value);
+  } on ErrorOrTypeError catch (e) {
+    print(e.message);
+  }
 }
