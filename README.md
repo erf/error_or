@@ -31,7 +31,7 @@ called without the proper check, a `ErrorOrTypeError` is thrown.
 
 ## Usage
 
-Example with ErrorOr (sync)
+Sync example with ErrorOr
 
 ```dart
 ErrorOr<String> getSyncValue() {
@@ -48,7 +48,7 @@ if (valueOrError.hasError) {
 String value = valueOrError.value;
 ```
 
-Example with ErrorOr (async)
+Async example with ErrorOr
 
 ```dart
 Future<ErrorOr<String>> getAsyncValue() async {
