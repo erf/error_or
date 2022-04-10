@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:error_or/error_or.dart';
@@ -9,8 +10,22 @@ String maybeThrows() {
   return 'Success';
 }
 
+ErrorOr<String> maybeErrorSync() {
+  if (Random().nextBool() == false) {
+    return ErrorOr.error(Exception('Error'));
+  }
+  return ErrorOr.value('Success');
+}
+
+final delay = Duration(milliseconds: 400);
+
+Future<String> getValueOrThrows() async {
+  await Future.delayed(delay);
+  return maybeThrows();
+}
+
 Future<ErrorOr<String>> getValueOrError() async {
-  await Future.delayed(Duration(milliseconds: 500));
+  await Future.delayed(delay);
   try {
     return ErrorOr.value(maybeThrows());
   } catch (e) {
@@ -18,49 +33,68 @@ Future<ErrorOr<String>> getValueOrError() async {
   }
 }
 
-Future<String> getValueOrThrows() async {
-  await Future.delayed(Duration(milliseconds: 500));
-  return maybeThrows();
+Future<void> errorHandlingWithThenAndCatchError() async {
+  print('* Error handling with then and catchError');
+  final completer = Completer();
+  getValueOrThrows().then((String value) {
+    print(value);
+  }).catchError((e) {
+    print(e);
+  }).whenComplete(() {
+    print('');
+    completer.complete();
+  });
+  return completer.future;
 }
 
-void main() async {
-  // ErrorOr example
-  print('* ErrorOr example');
-  final errorOr = await getValueOrError();
+Future<void> errorHandlingWithAwaitAndTryCatch() async {
+  print('* Error handling with await and try/catch');
+  try {
+    final String value = await getValueOrThrows();
+    print(value);
+  } catch (e) {
+    print(e);
+  }
+  print('');
+}
+
+Future<void> errorHandlingWithErrorOr() async {
+  print('* Error handling with ErrorOr');
+  final ErrorOr<String> errorOr = await getValueOrError();
   if (errorOr.hasError) {
     print(errorOr.error);
   } else {
     print(errorOr.value);
   }
   print('');
+}
 
-  // ErrorOrTypeError example
-  print('* ErrorOrTypeError example');
+void errorHandlingWithErrorOrSync() {
+  print('* Error handling with ErrorOr sync');
+  final ErrorOr<String> errorOr = maybeErrorSync();
+  if (errorOr.hasError) {
+    print(errorOr.error);
+  } else {
+    print(errorOr.value);
+  }
+  print('');
+}
+
+Future<void> errorHandlingWithErrorOrTypeError() async {
+  print('* Error handling with ErrorOr throws ErrorOrTypeError');
   try {
-    final errorOr = await getValueOrError();
+    final ErrorOr<String> errorOr = await getValueOrError();
     print(errorOr.value);
   } on ErrorOrTypeError catch (e) {
     print(e.message);
   }
   print('');
+}
 
-  // Normal Error handling with await and try/catch
-  print('* Normal Error handling with await and try/catch');
-  try {
-    final value = await getValueOrThrows();
-    print(value);
-  } on Exception catch (e) {
-    print(e);
-  }
-  print('');
-
-  // Normal Error handling with then and catchError
-  print('* Normal Error handling with then and catchError');
-  getValueOrThrows().then((value) {
-    print(value);
-  }).catchError((e) {
-    print(e);
-  }).whenComplete(() {
-    print('');
-  });
+void main() async {
+  await errorHandlingWithThenAndCatchError();
+  await errorHandlingWithAwaitAndTryCatch();
+  await errorHandlingWithErrorOr();
+  errorHandlingWithErrorOrSync();
+  await errorHandlingWithErrorOrTypeError();
 }
