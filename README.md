@@ -5,13 +5,10 @@ Return a result `ErrorOr` with either a value `T` or an error `Object`.
 ## Features
 
 Alternative error handling by wrapping a function that may throw exceptions, in
-a function that handles these and returns an `ErrorOr`.
+a function that handle these and returns an `ErrorOr`.
 
-Call the function that returns an `ErrorOr` without the try/catch and check if
-it `hasError` before calling `value`.
-
-Alternatively, wrap the throwing function using `ErrorOr.wrap` which will handle
-the try/catch and return an `ErrorOr` with the result.
+A more explicit way of defining a function which may return an error and avoid 
+having to try/catch these functions.
 
 `ErrorOr` can be used for both async and synchronous functions.
 
@@ -21,9 +18,9 @@ Create an `ErrorOr` instance by calling one of its factory constructors `value`
 or `error`.
 
 Check `hasError` or `hasValue`, before calling `error` or `value`. If either is
-called without the proper check, a `ErrorOrTypeError` is thrown.
+called without the proper check, an `ErrorOrTypeError` is thrown.
 
-The convenient function `ErrorOr.wrap`, does the try/catch for you given a
+The convenient function `ErrorOr.wrap`, does the try/catch logic for you given a
 throwing function.
 
 ## Examples
