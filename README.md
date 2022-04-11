@@ -21,7 +21,7 @@ or an `_ErrorWrapper`, with the expected non-null value.
 ## Getting started
 
 Make a function return a `Future<ErrorOr>`, which you'll `await` in the calling
-function.
+function or use the `trySync` or `tryAsync` methods given a function that throws.
 
 Create a `ErrorOr` instance by calling one of its factory constructors `value`
 or `error`.
@@ -34,14 +34,7 @@ called without the proper check, a `ErrorOrTypeError` is thrown.
 Sync example with ErrorOr
 
 ```dart
-ErrorOr<String> getSyncValue() {
-  try {
-    return ErrorOr.value(getSyncValueWhichMayThrow());
-  } catch (e) {
-    return ErrorOr.error(e);
-  }
-}
-ErrorOr<String> valueOrError = getSyncValue();
+ErrorOr<String> valueOrError = ErrorOr.trySync(syncFuncWhichMayThrow);
 if (valueOrError.hasError) {
   return valueOrError;
 }
@@ -51,14 +44,7 @@ String value = valueOrError.value;
 Async example with ErrorOr
 
 ```dart
-Future<ErrorOr<String>> getAsyncValue() async {
-  try {
-    return ErrorOr.value(await getAsyncValueWhichMayThrow());
-  } catch (e) {
-    return ErrorOr.error(e);
-  }
-}
-ErrorOr<String> valueOrError = await getAsyncValue();
+ErrorOr<String> valueOrError = await ErrorOr.tryAsync(asyncFuncWhichMayThrow)
 if (valueOrError.hasError) {
   return valueOrError;
 }
