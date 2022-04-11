@@ -8,6 +8,26 @@ abstract class ErrorOr<T> {
   /// Create an [ErrorOr] instance of type [_ErrorWrapper] given an error.
   const factory ErrorOr.error(Object error) = _ErrorWrapper<T>;
 
+  /// Given a function [func] which may throw an error, return a ErrorOr based
+  /// on if the function throws or not.
+  static ErrorOr<T> trySync<T>(T Function() func) {
+    try {
+      return ErrorOr.value(func());
+    } catch (e) {
+      return ErrorOr.error(e);
+    }
+  }
+
+  /// Given a async function [func] which may throw an error, return a
+  /// Future<ErrorOr> based on if the function throws or not.
+  static Future<ErrorOr<T>> tryAsync<T>(Future<T> Function() func) async {
+    try {
+      return ErrorOr.value(await func());
+    } catch (e) {
+      return ErrorOr.error(e);
+    }
+  }
+
   /// Returns true if [ErrorOr] is a [_ValueWrapper].
   bool get hasValue => this is _ValueWrapper<T>;
 
