@@ -1,3 +1,7 @@
+## 0.2.0 - 12 apr 2022
+
+* rename wrap -> tryIt
+
 ## 0.1.0 - 12 apr 2022
 
 * add wrap function to auto try/catch and erroneous function
