@@ -1,3 +1,7 @@
+## 0.1.0 - 12 apr 2022
+
+* add wrap function to auto try/catch and erroneous function
+
 ## 0.0.9+1 - 7 apr 2022
 
 * simplify DOCS
