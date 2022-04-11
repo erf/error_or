@@ -73,38 +73,15 @@ void main() {
     });
   });
 
-  group('ErrorOr test trySync', () {
-    test('trySync function which throws an exception', () {
-      final errorOr = ErrorOr.trySync(() {
-        throw Exception('Error');
-      });
+  group('ErrorOr wrap a throwing function', () {
+    test('wrap function which throws an exception', () async {
+      final errorOr = await ErrorOr.wrap(() => throw Exception('Error'));
       expect(errorOr.hasError, true);
       expect(errorOr.error, isA<Exception>());
     });
 
-    test('trySync function which does not throw an exception', () {
-      final errorOr = ErrorOr.trySync(() {
-        return 'Success';
-      });
-      expect(errorOr.hasError, false);
-      expect(errorOr.hasValue, true);
-      expect(errorOr.value, 'Success');
-    });
-  });
-
-  group('ErrorOr test tryAsync', () {
-    test('trySync function which throws an exception', () async {
-      final errorOr = await ErrorOr.tryAsync(() {
-        throw Exception('Error');
-      });
-      expect(errorOr.hasError, true);
-      expect(errorOr.error, isA<Exception>());
-    });
-
-    test('trySync function which does not throw an exception', () async {
-      final errorOr = await ErrorOr.tryAsync(() {
-        return Future.value('Success');
-      });
+    test('wrap function which does not throw an exception', () async {
+      final errorOr = await ErrorOr.wrap(() => 'Success');
       expect(errorOr.hasError, false);
       expect(errorOr.hasValue, true);
       expect(errorOr.value, 'Success');

@@ -4,31 +4,31 @@ Return a result `ErrorOr` with either a value `T` or an error `Object`.
 
 ## Features
 
-Alternative error handling by wrapping a function that might throw an error,
-into a function that returns `ErrorOr`.
+Alternative error handling by wrapping a function that may throw exceptions, in
+a function that handles these and returns an `ErrorOr`.
 
 Call the function that returns an `ErrorOr` without the try/catch and check if
 it `hasError` before calling `value`.
 
-Alternatively, pass the throwing function to `trySync` or `tryAsync`; it will
-handle the try/catch and return an `ErrorOr` with the result.
+Alternatively, wrap the throwing function using `ErrorOr.wrap` which will handle
+the try/catch and return an `ErrorOr` with the result.
 
 `ErrorOr` can be used for both async and synchronous functions.
 
 ## API
 
-Create a `ErrorOr` instance by calling one of its factory constructors `value`
+Create an `ErrorOr` instance by calling one of its factory constructors `value`
 or `error`.
 
 Check `hasError` or `hasValue`, before calling `error` or `value`. If either is
 called without the proper check, a `ErrorOrTypeError` is thrown.
 
-The convenient functions `trySync` and `tryAsync`, does the try/catch for you
-given a throwing function.
+The convenient function `ErrorOr.wrap`, does the try/catch for you given a
+throwing function.
 
 ## Examples
 
-Async example which returns a `Future` with an `ErrorOr`
+Async example
 
 ```dart
 Future<ErrorOr<T>> asyncFuncWhichThrowsWrapper() async {
@@ -46,18 +46,17 @@ if (valueOrError.hasError) {
 String value = valueOrError.value;
 ```
 
-Or simplify this by wrapping `syncFuncWhichMayThrow` using `tryAsync`.
+Simplify using `ErrorOr.wrap`.
 
 ```dart
-ErrorOr<String> valueOrError = await ErrorOr.tryAsync(asyncFuncWhichThrows)
+ErrorOr<String> valueOrError = await ErrorOr.wrap(asyncFuncWhichThrows)
 if (valueOrError.hasError) {
   return valueOrError;
 }
 String value = valueOrError.value;
 ```
 
-This is the same for synchronous functions, just remove the Future/await and use
-`trySync` to wrap the throwing function.
+This is similar for synchronous functions, just remove the Future/await.
 
 ## Additional information
 

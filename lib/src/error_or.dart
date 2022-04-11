@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'error_or_type_error.dart';
 
 /// A result type with either a [value] or an [error].
@@ -8,21 +10,11 @@ abstract class ErrorOr<T> {
   /// Create an [ErrorOr] instance of type [_ErrorWrapper] given an error.
   const factory ErrorOr.error(Object error) = _ErrorWrapper<T>;
 
-  /// Given a function [func] which may throw an error, return a ErrorOr based
-  /// on if the function throws or not.
-  static ErrorOr<T> trySync<T>(T Function() func) {
+  /// Wrap a throwing function [f] and return an [ErrorOr] with either a value
+  /// or an error, based on whether an exception is thrown or not.
+  static FutureOr<ErrorOr<T>> wrap<T>(FutureOr<T> Function() f) async {
     try {
-      return ErrorOr.value(func());
-    } catch (e) {
-      return ErrorOr.error(e);
-    }
-  }
-
-  /// Given a async function [func] which may throw an error, return a
-  /// Future<ErrorOr> based on if the function throws or not.
-  static Future<ErrorOr<T>> tryAsync<T>(Future<T> Function() func) async {
-    try {
-      return ErrorOr.value(await func());
+      return ErrorOr.value(await f());
     } catch (e) {
       return ErrorOr.error(e);
     }
