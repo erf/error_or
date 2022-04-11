@@ -26,7 +26,7 @@ Future<String> getValueOrThrows() async {
 
 Future<ErrorOr<String>> getValueOrError() async {
   await Future.delayed(delay);
-  return ErrorOr.wrap(maybeThrows);
+  return ErrorOr.tryIt(maybeThrows);
 }
 
 Future<void> errorHandlingWithThenAndCatchError() async {

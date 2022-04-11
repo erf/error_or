@@ -73,15 +73,15 @@ void main() {
     });
   });
 
-  group('ErrorOr wrap a throwing function', () {
-    test('wrap function which throws an exception', () async {
-      final errorOr = await ErrorOr.wrap(() => throw Exception('Error'));
+  group('ErrorOr tryIt given a throwing function', () {
+    test('tryIt which throws an exception', () async {
+      final errorOr = await ErrorOr.tryIt(() => throw Exception('Error'));
       expect(errorOr.hasError, true);
       expect(errorOr.error, isA<Exception>());
     });
 
-    test('wrap function which does not throw an exception', () async {
-      final errorOr = await ErrorOr.wrap(() => 'Success');
+    test('tryIt which does not throw an exception', () async {
+      final errorOr = await ErrorOr.tryIt(() => 'Success');
       expect(errorOr.hasError, false);
       expect(errorOr.hasValue, true);
       expect(errorOr.value, 'Success');
