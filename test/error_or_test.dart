@@ -19,6 +19,10 @@ class MyValueClass {
   String toString() => message;
 }
 
+void throwingFunction() {
+  throw MyException('MyException');
+}
+
 void main() {
   group('ErrorOr test value', () {
     test('Add ErrorOr with value 1', () {
@@ -54,8 +58,8 @@ void main() {
     });
   });
 
-  group('ErrorOr test accessing wrong type', () {
-    test('Add value and try to access error should throw ErrorOrTypeError', () {
+  group('ErrorOrTypeError', () {
+    test('Add value then access error should throw ErrorOrTypeError', () {
       const errorOr = ErrorOr.value(1);
       expect(errorOr.hasValue, true);
       expect(errorOr.hasError, false);
@@ -63,7 +67,7 @@ void main() {
       expect(() => errorOr.error, throwsA(TypeMatcher<ErrorOrTypeError>()));
     });
 
-    test('Add error and try to access value should throw ErrorOrTypeError', () {
+    test('Add error then access value should throw ErrorOrTypeError', () {
       const errorOr = ErrorOr.error(MyException('Error'));
       expect(errorOr.hasValue, false);
       expect(errorOr.hasError, true);
@@ -73,14 +77,20 @@ void main() {
     });
   });
 
-  group('ErrorOr tryIt given a throwing function', () {
-    test('tryIt which throws an exception', () async {
+  group('tryIt', () {
+    test('tryIt with anonymous function throws Exception', () async {
       final errorOr = await ErrorOr.tryIt(() => throw Exception('Error'));
       expect(errorOr.hasError, true);
       expect(errorOr.error, isA<Exception>());
     });
 
-    test('tryIt which does not throw an exception', () async {
+    test('tryIt with throwingFunction', () async {
+      final errorOr = await ErrorOr.tryIt(throwingFunction);
+      expect(errorOr.hasError, true);
+      expect(errorOr.error, isA<MyException>());
+    });
+
+    test('tryIt with success', () async {
       final errorOr = await ErrorOr.tryIt(() => 'Success');
       expect(errorOr.hasError, false);
       expect(errorOr.hasValue, true);
