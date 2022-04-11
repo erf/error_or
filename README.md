@@ -4,24 +4,18 @@ Return a result `ErrorOr` with either a value `T` or an error `Object`.
 
 ## Features
 
-Write async code like you'd write synchronous, whilst still dealing with errors.
+Alternative error handling by wrapping a function that might throw an error,
+into a function that returns `ErrorOr`.
 
-Always return a value `ErrorOr` from an async function. Let the called function
-handle the error and return an `ErrorOr`. The caller can then `await` the result
-without a `try catch`.
+Call the function that returns an `ErrorOr` without the try/catch and check if
+it `hasError` before calling `value`.
 
-A subclass of `ErrorOr` contains either the expected value `T` or an error
-`Object` (usually an `Exception` returned from a `try catch`).
-
-Internally, we create a private subclass of `ErrorOr`, either a `_ValueWrapper`
-or an `_ErrorWrapper`, with the expected non-null value.
+Alternatively, pass the throwing function to `trySync` or `tryAsync`; it will
+handle the try/catch and return an `ErrorOr` with the result.
 
 `ErrorOr` can be used for both async and synchronous functions.
 
-## Getting started
-
-Make a function return a `Future<ErrorOr>`, which you'll `await` in the calling
-function or use the `trySync` or `tryAsync` methods given a function that throws.
+## API
 
 Create a `ErrorOr` instance by calling one of its factory constructors `value`
 or `error`.
@@ -29,36 +23,47 @@ or `error`.
 Check `hasError` or `hasValue`, before calling `error` or `value`. If either is
 called without the proper check, a `ErrorOrTypeError` is thrown.
 
+The convenient functions `trySync` and `tryAsync`, does the try/catch for you
+given a throwing function.
+
 ## Examples
 
-Sync example with ErrorOr
+Async example which returns a `Future` with an `ErrorOr`
 
 ```dart
-ErrorOr<String> valueOrError = ErrorOr.trySync(syncFuncWhichMayThrow);
+Future<ErrorOr<T>> asyncFuncWhichThrowsWrapper() async {
+  try {
+    return ErrorOr.value(await asyncFuncWhichThrows());
+  } catch (e) {
+    return ErrorOr.error(e);
+  }
+}
+
+ErrorOr<String> valueOrError = await asyncFuncWhichThrowsWrapper();
 if (valueOrError.hasError) {
   return valueOrError;
 }
 String value = valueOrError.value;
 ```
 
-Async example with ErrorOr
+Or simplify this by wrapping `syncFuncWhichMayThrow` using `tryAsync`.
 
 ```dart
-ErrorOr<String> valueOrError = await ErrorOr.tryAsync(asyncFuncWhichMayThrow)
+ErrorOr<String> valueOrError = await ErrorOr.tryAsync(asyncFuncWhichThrows)
 if (valueOrError.hasError) {
   return valueOrError;
 }
 String value = valueOrError.value;
 ```
 
-> Notice how similar the async example is to the synchronous.
+This is the same for synchronous functions, just remove the Future/await and use
+`trySync` to wrap the throwing function.
 
 ## Additional information
 
-The name was inspired by the `ErrorOr` type of [SerenityOS](https://github.com/SerenityOS/serenity/blob/master/AK/Error.h).
+The "ErrorOr" is inspired by the SerenityOS [ErrorOr](https://github.com/SerenityOS/serenity/blob/master/AK/Error.h) type.
 
 The Success/Failure pattern was inspired by [result_type](https://pub.dev/packages/result_type).
 
 I'd like to keep this package minimal, but please get in touch on github if you
 have suggestions to improvements.
-
