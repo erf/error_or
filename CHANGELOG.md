@@ -1,3 +1,7 @@
+## 0.3.0 - 12 apr 2022
+
+* rename tryIt -> wrap
+
 ## 0.2.0 - 12 apr 2022
 
 * rename wrap -> tryIt
