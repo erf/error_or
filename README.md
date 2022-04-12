@@ -57,6 +57,8 @@ This is similar for synchronous functions, just remove the Future/await.
 
 ## Additional information
 
+See my article [Error handling in Dart and ErrorOr](https://medium.com/@erlendf/error-handling-in-dart-and-erroror-33a04a96d7e9).
+
 The "ErrorOr" is inspired by the SerenityOS [ErrorOr](https://github.com/SerenityOS/serenity/blob/master/AK/Error.h) type.
 
 The Success/Failure pattern was inspired by [result_type](https://pub.dev/packages/result_type).
