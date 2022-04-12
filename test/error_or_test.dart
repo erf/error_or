@@ -77,21 +77,21 @@ void main() {
     });
   });
 
-  group('tryIt', () {
-    test('tryIt with anonymous function throws Exception', () async {
-      final errorOr = await ErrorOr.tryIt(() => throw Exception('Error'));
+  group('Use ErrorOr.wrap to handle try / catch', () {
+    test('wrap with anonymous function throws Exception', () async {
+      final errorOr = await ErrorOr.wrap(() => throw Exception('Error'));
       expect(errorOr.hasError, true);
       expect(errorOr.error, isA<Exception>());
     });
 
-    test('tryIt with throwingFunction', () async {
-      final errorOr = await ErrorOr.tryIt(throwingFunction);
+    test('wrap with throwingFunction', () async {
+      final errorOr = await ErrorOr.wrap(throwingFunction);
       expect(errorOr.hasError, true);
       expect(errorOr.error, isA<MyException>());
     });
 
-    test('tryIt with success', () async {
-      final errorOr = await ErrorOr.tryIt(() => 'Success');
+    test('wrap with success', () async {
+      final errorOr = await ErrorOr.wrap(() => 'Success');
       expect(errorOr.hasError, false);
       expect(errorOr.hasValue, true);
       expect(errorOr.value, 'Success');

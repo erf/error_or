@@ -20,7 +20,7 @@ or `error`.
 Check `hasError` or `hasValue`, before calling `error` or `value`. If either is
 called without the proper check, an `ErrorOrTypeError` is thrown.
 
-The convenient function `ErrorOr.tryIt`, does the try/catch logic for you given
+The convenient function `ErrorOr.wrap`, does the try/catch logic for you given
 a throwing function.
 
 ## Examples
@@ -43,10 +43,10 @@ if (valueOrError.hasError) {
 String value = valueOrError.value;
 ```
 
-Simplify using `ErrorOr.tryIt`.
+Simplify using `ErrorOr.wrap`.
 
 ```dart
-ErrorOr<String> valueOrError = await ErrorOr.tryIt(asyncFuncWhichThrows)
+ErrorOr<String> valueOrError = await ErrorOr.wrap(asyncFuncWhichThrows)
 if (valueOrError.hasError) {
   return valueOrError;
 }
