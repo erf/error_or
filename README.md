@@ -21,7 +21,8 @@ Check `hasError` or `hasValue`, before calling `error` or `value`. If either is
 called without the proper check, an `ErrorOrTypeError` is thrown.
 
 The convenient function `ErrorOr.wrap`, does the try/catch logic for you given
-a throwing function.
+a throwing function. It returns a `FutureOr` so can be used for both async and
+synchronous functions.
 
 ## Examples
 
@@ -43,7 +44,7 @@ if (valueOrError.hasError) {
 String value = valueOrError.value;
 ```
 
-Simplify using `ErrorOr.wrap`.
+Or let `ErrorOr.wrap` handle the try/catch logic
 
 ```dart
 ErrorOr<String> valueOrError = await ErrorOr.wrap(asyncFuncWhichThrows)
@@ -53,15 +54,13 @@ if (valueOrError.hasError) {
 String value = valueOrError.value;
 ```
 
-This is similar for synchronous functions, just remove the Future/await.
-
 ## Additional information
-
-See my article [Error handling in Dart and ErrorOr](https://medium.com/@erlendf/error-handling-in-dart-and-erroror-33a04a96d7e9).
 
 The "ErrorOr" is inspired by the SerenityOS [ErrorOr](https://github.com/SerenityOS/serenity/blob/master/AK/Error.h) type.
 
 The Success/Failure pattern was inspired by [result_type](https://pub.dev/packages/result_type).
+
+See my article [Error handling in Dart and ErrorOr](https://medium.com/@erlendf/error-handling-in-dart-and-erroror-33a04a96d7e9).
 
 I'd like to keep this package minimal, but please get in touch on github if you
 have suggestions to improvements.
