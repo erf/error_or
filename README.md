@@ -56,11 +56,11 @@ String value = valueOrError.value;
 
 ## Additional information
 
+See my article [Error handling in Dart and ErrorOr](https://medium.com/@erlendf/error-handling-in-dart-and-erroror-33a04a96d7e9).
+
 The "ErrorOr" is inspired by the SerenityOS [ErrorOr](https://github.com/SerenityOS/serenity/blob/master/AK/Error.h) type.
 
 The Success/Failure pattern was inspired by [result_type](https://pub.dev/packages/result_type).
-
-See my article [Error handling in Dart and ErrorOr](https://medium.com/@erlendf/error-handling-in-dart-and-erroror-33a04a96d7e9).
 
 I'd like to keep this package minimal, but please get in touch on github if you
 have suggestions to improvements.
