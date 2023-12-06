@@ -1,3 +1,7 @@
+## 0.4.0 - 6 dec 2023
+
+* update sdk env and dev deps
+
 ## 0.3.0+1 - 15 apr 2022
 
 * minor change to README
